@@ -1,10 +1,10 @@
 const express = require('express')
+const fetch = require('node-fetch');
 const app = express()
 const port = 9001
 
 app.get('/series-videos', async (req, res, next) => {
   /**
-   * TODO: implement node call
    * - Parameterize seriesId to be sent from client application
    * - All series are nodes, but not all nodes are series.  So we can pass seriesId to /node
    * - https://brooklyn.gaia.com/node/[:seriesId]
@@ -13,7 +13,6 @@ app.get('/series-videos', async (req, res, next) => {
    *     - Series hero art -- node.hero_image.hero_1070x400
    *     - Series title -- node.title
 
-   * TODO: implement series episodes call
    * - Parameterize seriesId to be sent from client application
    * - https://brooklyn.gaia.com/v2/videos/series/[:seriesId]
    *   - Data from this endpoint wil look like exampleSeriesEpisodesData
@@ -25,10 +24,51 @@ app.get('/series-videos', async (req, res, next) => {
    *  }
    */
 
-  return {
-    mock: true,
-  }
+  const seriesId = req.query.seriesId;
+  let returnValue = {};
+
+  fetch("https://brooklyn.gaia.com/node/" + seriesId)
+    .then(result => {
+      if (!result.ok) { throw new Error("Could not find series " + seriesId); }
+      return result.json();
+    })
+    .then(json => {
+      returnValue.seriesHeroArt = json.hero_image.hero_1070x400;
+      returnValue.title = json.title;
+    })
+    .then(() => getSeriesEpisodes(seriesId))
+    .then((episodeList) => {
+      returnValue.episodeList = episodeList;
+      return res.send(returnValue);
+    }).catch((error) => {
+      return res.send(error.message);
+    });
 })
+
+function getSeriesEpisodes(seriesId) {
+  return new Promise((resolve, reject) => {
+    fetch("https://brooklyn.gaia.com/v2/videos/series/" + seriesId)
+      .then(result => {
+        if (!result.ok) { throw new Error("Could not find episodes for seriesId " + seriesId); }
+        return result.json();
+      })
+      .then(json => {
+        let episodes = [];
+        json.videos.forEach(item => {
+          const episode = {
+            episodeTitle: item.title,
+            episodeNumber: item.episode,
+          }
+          episodes.push(episode);
+        });
+
+        resolve(episodes);
+      })
+      .catch((error) => {
+        reject(error);
+      })
+  });
+}
 
 app.listen(port, () => console.log(`Congrats, the server is running.  Serving from port: ${port}`))
 

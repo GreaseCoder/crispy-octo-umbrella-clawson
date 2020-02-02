@@ -1,6 +1,8 @@
+import { STATE_INIT, STATE_SUCCESS, STATE_ERROR } from './states';
+
 export const getSeriesData = (seriesId) => (dispatch) => {
     dispatch({
-        type: 'STATE_INIT',
+        type: STATE_INIT,
         currentSeriesId: seriesId
     });
 
@@ -8,12 +10,12 @@ export const getSeriesData = (seriesId) => (dispatch) => {
     .then(response => response.json())
     .then((data) => {
         dispatch({
-            type: 'STATE_SUCCESS',
+            type: STATE_SUCCESS,
             data: data
         });
     }).catch((err) => {
         dispatch({
-            type: 'STATE_ERROR'
+            type: STATE_ERROR
         });
     });
 };

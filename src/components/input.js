@@ -17,25 +17,27 @@ class DataInput extends Component {
         this.setState({
             loading: nextProps.loading, 
             error: nextProps.error, 
-            previousSeriesId: 
-            this.props.currentSeriesId
+            previousSeriesId: this.props.currentSeriesId
         })
       }
     
     doChange = (event) => this.setState({currentSeriesId: event.target.value});
 
     doSubmit = (event) => {
+        event.preventDefault();
+
         // Only make a request when not loading, have numeric input, and the input is not the same as last.
-        if (!this.state.loading && this.state.currentSeriesId !== undefined && this.state.currentSeriesId !== this.state.previousSeriesId) {
-            const id = this.state.currentSeriesId;
-            if (isNaN(id)) {
+        if (   !this.state.loading 
+            && this.state.currentSeriesId !== undefined 
+            && this.state.currentSeriesId !== this.state.previousSeriesId 
+            && this.state.currentSeriesId !== '') {
+            if (isNaN(this.state.currentSeriesId)) {
                 this.setState({error: true});
             }
             else {
-                this.props.getSeriesData(id);
+                this.props.getSeriesData(this.state.currentSeriesId);
             }
         }
-        event.preventDefault();
     }
 
     render() {

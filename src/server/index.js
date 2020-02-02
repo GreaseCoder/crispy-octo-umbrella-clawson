@@ -3,6 +3,12 @@ const fetch = require('node-fetch');
 const app = express()
 const port = 9001
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.get('/series-videos', async (req, res, next) => {
   /**
    * - Parameterize seriesId to be sent from client application

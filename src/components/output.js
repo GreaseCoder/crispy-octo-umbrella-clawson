@@ -40,10 +40,10 @@ class DataOutput extends Component {
                         <img className="seriesHeroArt" src={this.state.imageURL} alt="series art" />
                     </div>
                     <div className="series-data">
-                        <div className="seriesTitle">
+                        <div className="series-title">
                             <span>{this.state.seriesTitle}</span>
                         </div>
-                        <div className="episodeList">
+                        <div className="series-episode-list">
                             <div className="list-container">
                                 <span class="list-label">First Twenty (or less) Episodes:</span>
                                 <span class="list-display"><ol>{this.makeEpisodeList()}</ol></span>

@@ -21,3 +21,88 @@
 .app__body {
   text-align: center;
 }
+
+div.seriesId label {
+  display: block;
+  float: left;
+}
+
+div.seriesId input#seriesId {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100px;
+}
+
+.submit-button {
+  border: none;
+  background-color: #338a59;
+  color: white;
+  cursor: pointer;
+  float: left;
+  margin-left: 12px;
+  padding: 5px 50px;
+  position: relative;
+  bottom: 4px;
+}
+
+div.state {
+  float: left;
+  clear: both;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+div.input-thinking {
+  color: white;
+}
+
+div.input-error {
+  color: red;
+}
+
+div.series-container {
+  width: 1070px;
+}
+
+img.seriesHeroArt {
+  width: 100%;
+  height: auto;
+}
+
+div.series-data {
+  margin-top: 15px;
+}
+
+div.series-title {
+  width: 50%;
+  float: left;
+  font-size: 16px;
+}
+
+div.series-title span {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 25%;
+}
+
+div.series-episode-list {
+  width: 50%;
+  float: right;
+}
+
+div.list-container {
+  text-align: left;
+}
+
+
+span.list-label {
+  font-weight: bold;
+}
+
+span.list-display {
+  text-align: left;
+}

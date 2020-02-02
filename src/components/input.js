@@ -46,6 +46,8 @@ class DataInput extends Component {
                         <label htmlFor="seriesId">Series Id:</label>
                         <input id="seriesId" onChange={this.doChange} value={this.state.seriesId}/>
                         <button type="submit" class="submit-button">GET SERIES DATA</button>
+                        {this.state.loading && <div className="state input-thinking">THINKING!</div>}
+                        {this.state.error && <div className="state input-error">Not found</div>}
                     </div>
                 </form>
             </div>

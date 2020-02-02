@@ -25,7 +25,9 @@ class DataOutput extends Component {
     makeEpisodeList() {
         let items = [];
         this.state.episodeList.forEach(episode => {
-            items.push(<li>{episode.episodeNumber + ". " + episode.episodeTitle}</li>);
+            // Mock image appears to use the OL style to add numbers.  What if they don't sync up?
+            // items.push(<li>{episode.episodeNumber + ". " + episode.episodeTitle}</li>);
+            items.push(<li>{episode.episodeTitle}</li>);
         });
         return items;
     }
